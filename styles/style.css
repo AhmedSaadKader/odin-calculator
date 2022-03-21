@@ -5,3 +5,9 @@
     margin: 5px;
     text-align: end;
 }
+
+#upper-display {
+    width: 100px;
+    height: 25px;
+    border-bottom: 2px solid black;
+}
