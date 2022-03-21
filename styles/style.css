@@ -1,13 +1,42 @@
+#main-calculator-body {
+    width: 450px;
+    height: 500px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
 #display {
-    width: 100px;
-    height: 50px;
+    width: 400px;
+    height: 100px;
     border: 2px solid black;
     margin: 5px;
     text-align: end;
 }
 
 #upper-display {
-    width: 100px;
     height: 25px;
     border-bottom: 2px solid black;
+}
+
+#calculator-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+#numbers-container{
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+
+#operator-buttons-container{
+    flex: 1;
+}
+
+#zero-button{
+    display: flex;
+    justify-content: center;
 }
