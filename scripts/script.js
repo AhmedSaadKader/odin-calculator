@@ -46,6 +46,22 @@ const equalClick = () => {
     upperDisplay.innerText = `${firstNumber} ${operator} ${lastNumber}`
 }
 
-numberButtonsList.forEach(button => button.addEventListener('click', (e) => getNumberInput(e)))
-operatorButtonsList.forEach(button => button.addEventListener('click', (e) => operatorClick(e)))
+numberButtonsList.forEach(button => button.addEventListener('click', (e) => {
+    if (result) {
+        result = "";
+        operator = "";
+        firstNumber = "";
+        lastNumber = "";
+    }
+    getNumberInput(e)
+}))
+operatorButtonsList.forEach(button => button.addEventListener('click', (e) => {
+    if (result) {
+        firstNumber = result;
+        result = "";
+        lastNumber = "";
+        operator = ""
+    }
+    operatorClick(e)
+}))
 equalsSign.addEventListener('click', () => equalClick())
