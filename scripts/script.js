@@ -56,6 +56,7 @@ numberButtonsList.forEach(button => button.addEventListener('click', (e) => {
     getNumberInput(e)
 }))
 operatorButtonsList.forEach(button => button.addEventListener('click', (e) => {
+    if (operator) { equalClick()}
     if (result) {
         firstNumber = result;
         result = "";
