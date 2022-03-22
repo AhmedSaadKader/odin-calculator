@@ -4,8 +4,8 @@ const operatorButtonsList = document.querySelectorAll('.operator-button')
 const display = document.querySelector('#display')
 const upperDisplay = document.querySelector('#upper-display')
 const lowerDisplay = document.querySelector('#lower-display')
-const equalsSign = document.querySelector('#operator-equals')
-const clearButton = document.querySelector('#clear-button')
+const equalsSign = document.querySelector('#Enter')
+const clearButton = document.querySelector('#Escape')
 
 const add = (a, b) => result = a + b;
 const subtract = (a, b) => result = a - b;
@@ -19,24 +19,24 @@ const operate =  (operator, a, b) => {
     operator === '/' ? divide (a, b): null
 }
 
-const getNumberInput = function (e) {
-    !operator ? (!firstNumber)          ? (firstNumber = "" + e.currentTarget.innerText,
+const getNumberInput = function (inputValue) {
+    !operator ? (!firstNumber)          ? (firstNumber = "" + inputValue,
                                             lowerDisplay.innerText = firstNumber)                     :
-                (firstNumber.length < 8)? (firstNumber = firstNumber + e.currentTarget.innerText,
+                (firstNumber.length < 8)? (firstNumber = firstNumber + inputValue,
                                             lowerDisplay.innerText = firstNumber)                     :
                 null:
-    operator  ? (!lastNumber)           ? (lastNumber = "" + e.currentTarget.innerText, 
+    operator  ? (!lastNumber)           ? (lastNumber = "" + inputValue, 
                                             lowerDisplay.innerText = lastNumber,
                                             upperDisplay.innerText = firstNumber + ' ' + operator)          :
-                (lastNumber.length < 8) ? (lastNumber = lastNumber + e.currentTarget.innerText,
+                (lastNumber.length < 8) ? (lastNumber = lastNumber + inputValue,
                                             lowerDisplay.innerText = lastNumber,
                                             upperDisplay.innerText = firstNumber + ' ' + operator)    :
                 null:
     null; 
 }
 
-const operatorClick = (e) => {
-    operator = e.currentTarget.innerText;
+const operatorClick = (inputValue) => {
+    operator = inputValue;
     upperDisplay.innerText = firstNumber + ' ' + operator;
     lowerDisplay.innerText = '';
 }
@@ -64,7 +64,7 @@ const handleNumberPress = function (e) {
 
 const handleOperatorPress = function (e) {
     if (!firstNumber) { 
-        firstNumber = e.currentTarget.innerText
+        firstNumber = inputValue
         lowerDisplay.innerText = firstNumber
         return
     }
@@ -84,7 +84,38 @@ const reset = function () {
     upperDisplay.innerText = ''
 }
 
-numberButtonsList.forEach(button => button.addEventListener('click', (e) => handleNumberPress(e)))
-operatorButtonsList.forEach(button => button.addEventListener('click', (e) => handleOperatorPress(e)))
+numberButtonsList.forEach(button => button.addEventListener('click', (e) => handleNumberPress(e.currentTarget.innerText)))
+operatorButtonsList.forEach(button => button.addEventListener('click', (e) => handleOperatorPress(e.currentTarget.innerText)))
 equalsSign.addEventListener('click', () => equalClick())
 clearButton.addEventListener('click', () => reset())
+
+// keyboard input
+document.addEventListener('keydown', (e) => {
+    numberButtonsList.forEach((button) =>{
+        if(button.getAttribute('id') === e.key){
+            console.log(button.getAttribute('id'), e.key)
+            handleNumberPress(button.innerText)
+        }
+    })
+})
+document.addEventListener('keydown', (e) =>{
+    operatorButtonsList.forEach((button) => {
+        if(button.getAttribute('id') === e.key){
+            console.log(button.getAttribute('id'), e.key)
+            handleOperatorPress(button.innerText)
+        }
+    })
+})
+
+document.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    if (equalsSign.getAttribute('id') === e.key) {
+        equalClick()
+    }
+})
+
+document.addEventListener('keydown', (e) => {
+    if (clearButton.getAttribute('id') === e.key) {
+        reset()
+    }
+})
