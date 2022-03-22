@@ -1,10 +1,11 @@
-let firstNumber, lastNumber, operator, firstResult, finalResult, result;
+let firstNumber, lastNumber, operator, result;
 const numberButtonsList = document.querySelectorAll('.number-button')
 const operatorButtonsList = document.querySelectorAll('.operator-button')
 const display = document.querySelector('#display')
 const upperDisplay = document.querySelector('#upper-display')
 const lowerDisplay = document.querySelector('#lower-display')
 const equalsSign = document.querySelector('#operator-equals')
+const clearButton = document.querySelector('#clear-button')
 
 const add = (a, b) => result = a + b;
 const subtract = (a, b) => result = a - b;
@@ -42,11 +43,16 @@ const operatorClick = (e) => {
 
 const equalClick = () => {
     operate(operator, parseInt(firstNumber), parseInt(lastNumber));
-    lowerDisplay.innerText = result;
-    upperDisplay.innerText = `${firstNumber} ${operator} ${lastNumber}`
+    if (!result || result === Infinity) {
+        reset()
+        lowerDisplay.innerText = "Error, can't do that!";
+    } else {
+        lowerDisplay.innerText = result;
+        upperDisplay.innerText = `${firstNumber} ${operator} ${lastNumber}`
+    }
 }
 
-numberButtonsList.forEach(button => button.addEventListener('click', (e) => {
+const handleNumberPress = function (e) {
     if (result) {
         result = "";
         operator = "";
@@ -54,9 +60,11 @@ numberButtonsList.forEach(button => button.addEventListener('click', (e) => {
         lastNumber = "";
     }
     getNumberInput(e)
-}))
-operatorButtonsList.forEach(button => button.addEventListener('click', (e) => {
-    if (operator) { equalClick()}
+}
+
+const handleOperatorPress = function (e) {
+
+    if (operator && lastNumber) { equalClick()}
     if (result) {
         firstNumber = result;
         result = "";
@@ -64,5 +72,15 @@ operatorButtonsList.forEach(button => button.addEventListener('click', (e) => {
         operator = ""
     }
     operatorClick(e)
-}))
+}
+
+const reset = function () {
+    firstNumber = "", lastNumber = "", operator = "", result = ''
+    lowerDisplay.innerText = '';
+    upperDisplay.innerText = ''
+}
+
+numberButtonsList.forEach(button => button.addEventListener('click', (e) => handleNumberPress(e)))
+operatorButtonsList.forEach(button => button.addEventListener('click', (e) => handleOperatorPress(e)))
 equalsSign.addEventListener('click', () => equalClick())
+clearButton.addEventListener('click', () => reset())

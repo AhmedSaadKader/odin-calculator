@@ -1,5 +1,5 @@
 * {
-    /* border: 2px solid black; */
+    /* padding: 5px; */
 }
 
 #main-calculator-body {
@@ -21,6 +21,11 @@
     text-align: end;
     background-color: silver;
     font-size: xx-large;
+}
+
+#lower-display-text {
+    font-size: xx-large;
+    padding: 5px;
 }
 
 #upper-display {
@@ -49,6 +54,20 @@
     height: 60px;
     border-radius: 30%;
     margin: 5px;
+    color: aliceblue;
+    font-size: xx-large;
+    background-color: black;
+}
+
+.others-button {
+    flex: 1;
+    width: 80px;
+    height: 60px;
+    border-radius: 30%;
+    margin: 5px;
+    color: aliceblue;
+    font-size: xx-large;
+    background-color: black;
 }
 
 .operator-button {
