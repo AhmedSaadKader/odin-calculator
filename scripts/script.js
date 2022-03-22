@@ -63,7 +63,11 @@ const handleNumberPress = function (e) {
 }
 
 const handleOperatorPress = function (e) {
-
+    if (!firstNumber) { 
+        firstNumber = e.currentTarget.innerText
+        lowerDisplay.innerText = firstNumber
+        return
+    }
     if (operator && lastNumber) { equalClick()}
     if (result) {
         firstNumber = result;
